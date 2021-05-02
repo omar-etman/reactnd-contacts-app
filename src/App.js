@@ -8,7 +8,7 @@ class App extends Component {
   
   state = {
     contacts : [],
-    screen: 'create'
+    screen: 'list'
   }
 
   componentDidMount() {
@@ -31,11 +31,18 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ListContacts 
+        {this.state.screen === 'list' && (<ListContacts 
         contacts = {this.state.contacts}
         onDeleteContact = {this.removeContact}
-        />
-        <CreateContact/>
+        onNavigate = {() => {
+          this.setState(() => ({
+            screen: 'create'
+          }))
+        }}
+        />)}
+
+        {this.state.screen === 'create'&& (<CreateContact/>)}
+        
       </div>
     );
   }
