@@ -17,6 +17,10 @@ class ListContacts extends Component{
             query: query.trim()
         }))
     }
+
+    clearQuery = () => {
+        this.updateQuery('')
+    }
     render(){
 
         const { query } = this.state
@@ -24,7 +28,7 @@ class ListContacts extends Component{
         const showingContacts = query === ''
             ? contacts
             : contacts.filter((c) => (
-                c.name.toLowerCase().includes(query.toLocaleLowerCase())
+                c.name.toLowerCase().includes(query.toLowerCase())
             ))
 
 
@@ -40,6 +44,13 @@ class ListContacts extends Component{
                     />
 
                 </div>
+
+                {showingContacts.length !== contacts.length && (
+                    <div className = 'showing-contacts'>
+                        <span>now showing {showingContacts.length} of {contacts.length}</span>
+                        <button onClick = {this.clearQuery}>Show all</button>
+                    </div>
+                )}
 
                 <ol className='contact-list'>
                     {showingContacts.map((contact)=> (
